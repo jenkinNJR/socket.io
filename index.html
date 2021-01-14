@@ -65,6 +65,9 @@
 <body>
     <ul id="messages"></ul>
     <form id="form" action="">
+        <select id="users">
+
+        </select>
         <input id="input" autocomplete="off" /><button>Send</button>
     </form>
     <script>
@@ -72,23 +75,64 @@
         var form = document.getElementById('form');
         var input = document.getElementById('input');
         var message = document.getElementById('messages');
-
+        var users = document.getElementById('users');
+        var person;
         form.addEventListener('submit', e => {
             e.preventDefault();
             if (input.value) {
-                socket.emit('chat message', input.value);
+                socket.emit('chat message', {
+                    name: person,
+                    text: input.value,
+                    to: users.value
+                });
                 input.value = "";
             }
-
-            socket.on('chat message', (msg) => {
-                var item = document.createElement('li');
-                item.textContent = msg;
-                message.appendChild(item);
-                window.scrollTo(0, document.body.scrollHeight);
-            })
-
-
         })
+        socket.on('connect', () => {
+            if (person) {
+                socket.emit('newuser', {
+                    name: person,
+                    id: socket.id
+                });
+
+            } else {
+                setName();
+            }
+            console.log(socket.id);
+        })
+
+        socket.on('render', val => {
+            users.innerHTML = "";
+            val.forEach(element => {
+                optopns(element);
+            });
+        })
+
+
+        socket.on('sendmessage', (msg) => {
+            var item = document.createElement('li');
+            item.textContent = msg;
+            message.appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight);
+        })
+
+
+
+        function setName() {
+            person = prompt("Please enter your name:");
+            socket.emit('newuser', {
+                name: person,
+                id: socket.id
+            });
+        }
+
+        function optopns(val) {
+            var op = document.createElement('option');
+            op.id = val.name;
+            op.value = val.id;
+            op.textContent = val.name;
+            users.appendChild(op);
+        }
     </script>
 </body>
 
