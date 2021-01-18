@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "express": "^4.17.1",
+    "mongoose": "^5.11.12",
     "socket.io": "^3.0.5"
   },
   "devDependencies": {},

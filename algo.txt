@@ -1,0 +1,28 @@
+Introduction to algorithms (you already know what is an algorithms).
+Time complexity analysis
+Searching algorithms:
+- Linear search.
+- Binary search.
+- Lower bound .
+- Upper bound.
+- Sequential search.
+Sorting Algorithms:
+- SBI (selection, bubble, insertion).
+- Merge sort.
+- Heap sort.
+- Quick sort "use it everywhere, it worked well for all algorithms".
+String search algorithms:
+- Basics. string, string reverse, palindromesub-string, prefix, suffix, borderanagramSearching for pattern.Naive "compare each char of pattern (P) to each char of text (T)".
+- KMP
+- Boyer Moore
+- Suffix array "simply, indexes of sorted suffixes of a string - oh this is very important, saves a lot of run time, so your tests pass easily".
+- LCP array "1st entry is undefined, other entries are longest common prefix lengths of (1st and 0th index of Suffix array of a string, & so on)".
+Graph Theory:
+- BFS
+- DFS
+- pre-order "node, left, then right".
+- post-order "left, right, then node".
+- in-order "left, node, then right".
+- Binary tree "max 2 nodes".
+- Binary search tree.
+- Trees.

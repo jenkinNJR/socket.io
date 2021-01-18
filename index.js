@@ -1,8 +1,20 @@
 const express = require('express');
-const { disconnect } = require('process');
 const app = new express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/chat', { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(console.log('connected to db'))
+    .catch(e => console.log(e));
+
+const chatSchema = mongoose.Schema({
+    name: String,
+    text: String,
+    to: String
+});
+
+const Chat = new mongoose.model("chats", chatSchema);
 
 app.use(express.static('public'));
 
@@ -18,11 +30,16 @@ io.on('connection', socket => {
     console.log(socket.id);
     socket.on('chat message', msg => {
         socket.to(msg.to).emit('sendmessage', msg.name + " : " + msg.text);
+
+
+        chatSave(msg).then(
+            (value) => console.log(value),
+            (err) => console.log(err)
+        );
         console.log(msg);
     })
 
     socket.on('newuser', (name) => {
-
         connectedUsers.push(name);
         io.emit('render', connectedUsers);
         console.log(connectedUsers);
@@ -46,6 +63,10 @@ io.on('connection', socket => {
 
 })
 
+async function chatSave(data) {
+    const chatMessage = new Chat(data);
+    return await chatMessage.save();
+}
 
 http.listen(3000, () => {
     console.log('listening on *:3000');
