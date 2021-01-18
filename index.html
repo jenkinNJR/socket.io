@@ -78,6 +78,7 @@
         var users = document.getElementById('users');
         var person;
         form.addEventListener('submit', e => {
+
             e.preventDefault();
             if (input.value) {
                 socket.emit('chat message', {
