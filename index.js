@@ -8,13 +8,13 @@ const mongoose = require('mongoose');
 //     .then(console.log('connected to db'))
 //     .catch(e => console.log(e));
 
-const chatSchema = mongoose.Schema({
-    name: String,
-    text: String,
-    to: String
-});
+// const chatSchema = mongoose.Schema({
+//     name: String,
+//     text: String,
+//     to: String
+// });
 
-const Chat = new mongoose.model("chats", chatSchema);
+// const Chat = new mongoose.model("chats", chatSchema);
 
 app.use(express.static('public'));
 
@@ -36,7 +36,7 @@ io.on('connection', socket => {
 //             (value) => console.log(value),
 //             (err) => console.log(err)
 //         );
-//         console.log(msg);
+        console.log(msg);
     })
 
     socket.on('newuser', (name) => {
@@ -47,11 +47,11 @@ io.on('connection', socket => {
 
 
     socket.on('disconnect', () => {
-        /*    var index = connectedUsers.indexOf(s);
-            console.log(s);
-            connectedUsers.splice(index, 1);
-            console.log(connectedUsers);
-            */
+            // var index = connectedUsers.indexOf(s);
+            // console.log(s);
+            // connectedUsers.splice(index, 1);
+            // console.log(connectedUsers);
+        
         connectedUsers.find((us, index) => {
             if (us.id == socket.id) {
                 connectedUsers.splice(index, 1);
