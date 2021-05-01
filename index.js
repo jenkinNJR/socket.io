@@ -63,10 +63,7 @@ io.on('connection', socket => {
 
 })
 
-async function chatSave(data) {
-    const chatMessage = new Chat(data);
-    return await chatMessage.save();
-}
+
 
 http.listen(3000, () => {
     console.log('listening on *:3000');
