@@ -1,7 +1,7 @@
 const express = require('express');
 const app = new express();
 const http = require('http').createServer(app);
-const io = require('socket.io')(http);
+const io = require('socket.io')(http, { cors: { origin: '*' }, allowEIO3: true });
 const mongoose = require('mongoose');
 
 // mongoose.connect('mongodb://localhost/chat', { useNewUrlParser: true, useUnifiedTopology: true })
