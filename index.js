@@ -4,9 +4,9 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/chat', { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(console.log('connected to db'))
-    .catch(e => console.log(e));
+// mongoose.connect('mongodb://localhost/chat', { useNewUrlParser: true, useUnifiedTopology: true })
+//     .then(console.log('connected to db'))
+//     .catch(e => console.log(e));
 
 const chatSchema = mongoose.Schema({
     name: String,
@@ -32,11 +32,11 @@ io.on('connection', socket => {
         socket.to(msg.to).emit('sendmessage', msg.name + " : " + msg.text);
 
 
-        chatSave(msg).then(
-            (value) => console.log(value),
-            (err) => console.log(err)
-        );
-        console.log(msg);
+//         chatSave(msg).then(
+//             (value) => console.log(value),
+//             (err) => console.log(err)
+//         );
+//         console.log(msg);
     })
 
     socket.on('newuser', (name) => {
